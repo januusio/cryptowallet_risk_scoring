@@ -366,6 +366,30 @@ class VerifiedDate:
 
 ```
 
+## Examples 
+We provide access to extremely varied types of risk data. Here are some examples:
+
+Here is an address that is a honeypot scammer:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644da31443abfd"]}' | jq .```
+<img width="676" alt="image" src="https://user-images.githubusercontent.com/115087366/197033722-4d4522cb-e3f5-42a4-8d18-e8f94f9d9f7b.png">
+
+Here is a terrorist:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq .```
+<img width="937" alt="image" src="https://user-images.githubusercontent.com/115087366/197034990-3b0665fd-e729-437b-a3af-41c273a1b594.png">
+
+A garden variety phishing scammer:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .```
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/115087366/197038098-21ade0e8-8d44-4d25-8c79-24b3e06c92df.png">
+
+Here is a very interesting one. The score is neutral, but it still shows that it has appeared as input together in a BTC transaction with 2 other addresses which have both been sanctioned by a government. This could be because they belong to the same wallet or have happened to coinjoin together. In any case, it's only 2 sanctioned neighbors out of 247, so the score is still neutral. 
+
+
+```python3 -m januus_riskreport '{"btc_addresses":["3LkZuYijwGRmoevYLZrdXGdgLwu6H1dH2t"]}' | jq .```
+![image](https://user-images.githubusercontent.com/115087366/197039571-0017a8bc-b973-4b7f-ad15-fd2c9637bb9d.png)
+
 ## Rate Limits
 
 We ask that you generally not generate more than 30 queries per minute.
