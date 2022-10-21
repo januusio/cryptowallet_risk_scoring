@@ -72,7 +72,7 @@ class RiskElaboration:
         elif label == "risky-zero-valued-txs": 
             return RiskyZeroValuedTxs.from_dict(d)
         
-        elif label == "is-scammer":
+        elif label == "is-scammer" or label == "is-threat":
             return IsScammer.from_dict(d) 
         
         elif label == "date-verification": 
@@ -108,6 +108,8 @@ class RiskReason:
     @staticmethod 
     @raise_as("RiskReason")
     def from_dict(d: Dict[str, Any])-> RiskReason: 
+        if d["label"] == "is-scammer":
+            d["label"] = "is-threat"
         return RiskReason(
                       explanation = d["explanation"],
                       risk_elaboration = RiskElaboration.from_dict_label(d["risk_elaboration"], d["label"]),
