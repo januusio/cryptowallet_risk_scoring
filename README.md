@@ -16,138 +16,31 @@ python3 example_default.py
 
 The example files `example_default.py`, `example_json.py`, `example_reasons.py` easily articulate the usage options. 
 
-### Example Output
 
-```json
-{
-    "reasons": [
-        {
-            "explanation": "The following addresses of this entity were found to likely be perpetrators of fraud: 0xbb0ea877a85df253ccc312b80c644da31443abfd",
-            "label": "is-scammer",
-            "offsets": {
-                "combined_risk_offset": 52.31019,
-                "fraud_risk_offset": 69.04503,
-                "lending_risk_offset": 20.537472,
-                "reputation_risk_offset": 50.95931
-            },
-            "risk_elaboration": {
-                "scam_history": [
-                    {
-                        "address": "0xbb0ea877a85df253ccc312b80c644da31443abfd",
-                        "blockchain": "ethereum",
-                        "number_of_transactions": 98,
-                        "risk_factors": [
-                            {
-                                "actor_type": "honeypot",
-                                "involved_risk_activity": {
-                                    "category_name": "honeypot",
-                                    "description": "The scammer has involved in the creating smart contract for honeypot ",
-                                    "rating": "high",
-                                    "sub_category": "maliciousSmartContractCreation"
-                                },
-                                "media_platform_used": "Unknown"
-                            }
-                        ]
-                    },
-                    {
-                        "address": "0xbb0ea877a85df253ccc312b80c644da31443abfd",
-                        "blockchain": "ethereum",
-                        "number_of_transactions": 98,
-                        "risk_factors": [
-                            {
-                                "actor_type": "honeypot",
-                                "involved_risk_activity": {
-                                    "category_name": "honeypot",
-                                    "description": "The scammer has involved in the creating smart contract for honeypot ",
-                                    "rating": "high",
-                                    "sub_category": "maliciousSmartContractCreation"
-                                },
-                                "media_platform_used": "Unknown"
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "explanation": "The entity has been associated with multiple dates between 2017-09-10 and 2021-03-19",
-            "label": "date-verification",
-            "offsets": {
-                "combined_risk_offset": -1.6213226,
-                "fraud_risk_offset": -2.9186554,
-                "lending_risk_offset": 0,
-                "reputation_risk_offset": -3.5666428
-            },
-            "risk_elaboration": {
-                "verified_dates": [
-                    {
-                        "date": "2017-09-10",
-                        "source": "The day '0xbb0ea877a85df253ccc312b80c644da31443abfd' was first seen on the blockchain.",
-                        "weight": 1.86
-                    },
-                    {
-                        "date": "2021-03-19",
-                        "source": "The day '0xbb0ea877a85df253ccc312b80c644da31443abfd' was last seen on the blockchain.",
-                        "weight": 0.574
-                    }
-                ]
-            }
-        },
-        {
-            "explanation": "The entity has had blockchain transactions with a known scammer. However, the total value sent/received was $0 so it may be part of a automatically executed contract.",
-            "label": "risky-zero-valued-txs",
-            "offsets": {
-                "combined_risk_offset": 1.7818756,
-                "fraud_risk_offset": 2.6735687,
-                "lending_risk_offset": 2.9770813,
-                "reputation_risk_offset": 1.4767227
-            },
-            "risk_elaboration": {
-                "how_many_neighbors": "17",
-                "how_many_scammy_neighbors": "1",
-                "scammy_neighbor_details": [
-                    {
-                        "neighbor": "0xc94a6e7776bade5da316cf6fd8c751fb0d5c3c5e",
-                        "scammer_details": {
-                            "address": "0xc94a6e7776bade5da316cf6fd8c751fb0d5c3c5e",
-                            "blockchain": "ethereum",
-                            "number_of_transactions": 9,
-                            "risk_factors": [
-                                {
-                                    "actor_type": "scammer",
-                                    "involved_risk_activity": {
-                                        "category_name": "phishing",
-                                        "description": "Tricks the victim into paying a certain amount of money to the actor.",
-                                        "rating": "moderate",
-                                        "sub_category": "scam"
-                                    },
-                                    "media_platform_used": "Unknown"
-                                },
-                                {
-                                    "actor_type": "scammer",
-                                    "involved_risk_activity": {
-                                        "category_name": "phishing",
-                                        "description": "Tricks the victim into paying a certain amount of money to the actor.",
-                                        "rating": "moderate",
-                                        "sub_category": "scam"
-                                    },
-                                    "media_platform_used": "Unknown"
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        }
-    ],
-    "risk_scores": {
-        "combined_risk": 83.111786,
-        "fraud_risk": 95.67439,
-        "lending_risk": 58.691364,
-        "reputation_risk": 78.08139
-    }
-}
-```
+## Examples 
+We provide access to extremely varied types of risk data. Here are some examples:
+
+Here is an address that is a honeypot scammer:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644da31443abfd"]}' | jq .```
+<img width="676" alt="image" src="https://user-images.githubusercontent.com/115087366/197033722-4d4522cb-e3f5-42a4-8d18-e8f94f9d9f7b.png">
+
+Here is a terrorist:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq .```
+<img width="937" alt="image" src="https://user-images.githubusercontent.com/115087366/197034990-3b0665fd-e729-437b-a3af-41c273a1b594.png">
+
+A garden variety phishing scammer:
+
+```python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .```
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/115087366/197038098-21ade0e8-8d44-4d25-8c79-24b3e06c92df.png">
+
+Here is a very interesting one. The score is neutral, but it still shows that it has appeared as input together in a BTC transaction with 2 other addresses which have both been sanctioned by a government. This could be because they belong to the same wallet or have happened to coinjoin together. In any case, it's only 2 sanctioned neighbors out of 247, so the score is still neutral. 
+
+
+```python3 -m januus_riskreport '{"btc_addresses":["3LkZuYijwGRmoevYLZrdXGdgLwu6H1dH2t"]}' | jq .```
+![image](https://user-images.githubusercontent.com/115087366/197039571-0017a8bc-b973-4b7f-ad15-fd2c9637bb9d.png)
+
 
 The request to Januus' risk scoring service is a single function:
 
@@ -365,30 +258,6 @@ class VerifiedDate:
     weight: float
 
 ```
-
-## Examples 
-We provide access to extremely varied types of risk data. Here are some examples:
-
-Here is an address that is a honeypot scammer:
-
-```python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644da31443abfd"]}' | jq .```
-<img width="676" alt="image" src="https://user-images.githubusercontent.com/115087366/197033722-4d4522cb-e3f5-42a4-8d18-e8f94f9d9f7b.png">
-
-Here is a terrorist:
-
-```python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq .```
-<img width="937" alt="image" src="https://user-images.githubusercontent.com/115087366/197034990-3b0665fd-e729-437b-a3af-41c273a1b594.png">
-
-A garden variety phishing scammer:
-
-```python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .```
-<img width="950" alt="image" src="https://user-images.githubusercontent.com/115087366/197038098-21ade0e8-8d44-4d25-8c79-24b3e06c92df.png">
-
-Here is a very interesting one. The score is neutral, but it still shows that it has appeared as input together in a BTC transaction with 2 other addresses which have both been sanctioned by a government. This could be because they belong to the same wallet or have happened to coinjoin together. In any case, it's only 2 sanctioned neighbors out of 247, so the score is still neutral. 
-
-
-```python3 -m januus_riskreport '{"btc_addresses":["3LkZuYijwGRmoevYLZrdXGdgLwu6H1dH2t"]}' | jq .```
-![image](https://user-images.githubusercontent.com/115087366/197039571-0017a8bc-b973-4b7f-ad15-fd2c9637bb9d.png)
 
 ## Rate Limits
 
