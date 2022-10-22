@@ -12,13 +12,16 @@ pip3 install -r requirements.txt
 python3 example_default.py
 ```
 
+## Data
+
+The dataset spans: sanctions, terrorism, petty scammers, crypto heists, malicious smart contract creators, nft thieves, ransomware creators, darknet traders across both OSINT and private datasets. It should be considered the union of existing wallet reporting service data, taggers and scam detectors - in addition to a large dataset unique to Januus. Transaction analysis is performed by default to assess risk by degrees of separation in the output.
+
 ## Usage
 
 The example files `example_default.py`, `example_json.py`, `example_reasons.py` easily articulate the usage options. 
 
 
 ## Examples 
-We provide access to extremely varied types of risk data.
 
 Here is an address that is a **honeypot scammer**:
 ```python
