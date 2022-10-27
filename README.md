@@ -274,4 +274,6 @@ class VerifiedDate:
 ## Rate Limits
 
 We ask that you generally not generate more than 30 queries per minute.
- 
+
+## Performance / Latency
+95% of addresses will be queried in roughly 1 second or under. Latency of up to 30 seconds is uncommon.
