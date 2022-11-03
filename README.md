@@ -45,12 +45,6 @@ python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a220620699459
 
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/115087366/197038098-21ade0e8-8d44-4d25-8c79-24b3e06c92df.png">
 
-Here is a very interesting one. The score is neutral, but it still shows that it has appeared as input together in a BTC transaction with 2 other **addresses of entities which have both been sanctioned** by a government. This could be because they belong to the same wallet or have happened to coinjoin together. In any case, it's only 2 sanctioned neighbors out of 247, so the score is still neutral. 
-```python
-python3 -m januus_riskreport '{"btc_addresses":["3LkZuYijwGRmoevYLZrdXGdgLwu6H1dH2t"]}' | jq .
-```
-
-![image](https://user-images.githubusercontent.com/115087366/197039571-0017a8bc-b973-4b7f-ad15-fd2c9637bb9d.png)
 
 # Using the client
 
