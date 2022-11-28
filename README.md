@@ -41,7 +41,7 @@ python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2
 <img width="851" alt="image" src="https://user-images.githubusercontent.com/115087366/204372112-63b6de06-fe21-4369-a83a-ef447b04528a.png">
 
 
-A **sanctioned wallet** that has received funds from a phising scammer. Because of having so many txs, this query will be close to the max latency:
+Here is a **sanctioned wallet** that has received funds from a phising scammer. Because of having so many txs, this query will be close to the max latency:
 
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .
