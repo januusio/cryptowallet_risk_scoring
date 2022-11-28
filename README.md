@@ -28,22 +28,26 @@ Here is an address that is a **honeypot scammer**:
 python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644da31443abfd"]}' | jq .
 ```
 
-<img width="676" alt="image" src="https://user-images.githubusercontent.com/115087366/197033722-4d4522cb-e3f5-42a4-8d18-e8f94f9d9f7b.png">
+<img width="1009" alt="image" src="https://user-images.githubusercontent.com/115087366/204371629-9c7155fe-02d3-4ed8-b7fd-40bee09dfa5e.png">
 
-Here is a **terrorist**:
+Here is a **terrorist** who has also been paid $3078.36 by a hacker:
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq .
 ```
+<img width="345" alt="image" src="https://user-images.githubusercontent.com/115087366/204372524-1de01e31-ed42-43cc-a876-cac401c56a90.png">
 
-<img width="937" alt="image" src="https://user-images.githubusercontent.com/115087366/197034990-3b0665fd-e729-437b-a3af-41c273a1b594.png">
+<img width="828" alt="image" src="https://user-images.githubusercontent.com/115087366/204371976-61181e34-5a2e-4895-b0ee-4e81098ca8dc.png">
 
-A garden variety **phishing scammer**:
+<img width="851" alt="image" src="https://user-images.githubusercontent.com/115087366/204372112-63b6de06-fe21-4369-a83a-ef447b04528a.png">
+
+
+A **sanctioned wallet** that has received funds from a phising scammer:
 
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .
 ```
-
-<img width="950" alt="image" src="https://user-images.githubusercontent.com/115087366/197038098-21ade0e8-8d44-4d25-8c79-24b3e06c92df.png">
+<img width="784" alt="image" src="https://user-images.githubusercontent.com/115087366/204373963-85da21a4-38ec-4e50-92b9-c7aa23b37222.png">
+<img width="931" alt="image" src="https://user-images.githubusercontent.com/115087366/204373778-42468758-db8a-4bf4-a553-4cc940da0469.png">
 
 
 # Using the client
