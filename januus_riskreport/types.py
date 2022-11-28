@@ -15,6 +15,7 @@ def raise_as(msg: str):
             except RiskReportException as e:
                 raise e
             except Exception as e:
+                print(args, kwargs)
                 raise DeserializationException(msg)
         return super_inner 
     return inner
@@ -63,17 +64,17 @@ class RiskElaboration:
     @raise_as("RiskElaboration") 
     def from_dict_label(d: Dict[str, Any], label: str)->RiskElaboration:
 
-        if label == "sent-to-scammer":
-            return SentToScammer.from_dict(d)
+        if label == "sent-to-bad-actor":
+            return SentToBadActor.from_dict(d)
         
-        elif label == "funded-by-scammer": 
-            return FundedByScammer.from_dict(d) 
+        elif label == "funded-by-bad-actor": 
+            return FundedByBadActor.from_dict(d) 
         
-        elif label == "risky-zero-valued-txs": 
-            return RiskyZeroValuedTxs.from_dict(d)
+        elif label == "bad-zero-valued-txs": 
+            return BadZeroValuedTxs.from_dict(d)
         
-        elif label == "is-scammer" or label == "is-threat":
-            return IsScammer.from_dict(d) 
+        elif label == "is-bad-actor" or label == "is-threat":
+            return IsBadActor.from_dict(d) 
         
         elif label == "date-verification": 
             return VerifiedDates.from_dict(d)        
@@ -83,14 +84,14 @@ class RiskElaboration:
 
 
 @dataclass 
-class IsScammer(RiskElaboration):
-    scam_history: List[RiskAccountDetails]         
+class IsBadActor(RiskElaboration):
+    risk_details: List[RiskAccountDetails]         
     __as_json__: Dict[str, Any] = field(default_factory=lambda: {}) 
 
     @staticmethod 
-    @raise_as("IsScammer") 
-    def from_dict(d: Dict[str, Any]   )->IsScammer:
-        x = IsScammer(**d)
+    @raise_as("IsBadActor") 
+    def from_dict(d: Dict[str, Any]   )->IsBadActor:
+        x = IsBadActor(**d)
         x.__as_json__ = d
         return x
 
@@ -108,8 +109,6 @@ class RiskReason:
     @staticmethod 
     @raise_as("RiskReason")
     def from_dict(d: Dict[str, Any])-> RiskReason: 
-        if d["label"] == "is-scammer":
-            d["label"] = "is-threat"
         return RiskReason(
                       explanation = d["explanation"],
                       risk_elaboration = RiskElaboration.from_dict_label(d["risk_elaboration"], d["label"]),
@@ -122,17 +121,17 @@ class RiskReason:
         return self.__as_json__ 
 
 @dataclass 
-class ScammyNeighborDetails:
+class BadNeighborDetails:
     sender: str 
     recipient: str 
     total_usd: float 
-    scammer_details: RiskAccountDetails 
+    risk_details: RiskAccountDetails 
     __as_json__: Dict[str, Any] = field(default_factory=lambda: {}) 
     
     @staticmethod 
-    @raise_as("ScammyNeighborDetails")
-    def from_dict(d: Dict[str, Any]   )->ScammyNeighborDetails:
-        x = ScammyNeighborDetails(**d)
+    @raise_as("BadNeighborDetails")
+    def from_dict(d: Dict[str, Any]   )->BadNeighborDetails:
+        x = BadNeighborDetails(**d)
         x.__as_json__ = d
         return x
 
@@ -140,19 +139,19 @@ class ScammyNeighborDetails:
         return self.__as_json__ 
 
 @dataclass 
-class SentToScammer(RiskElaboration):
+class SentToBadActor(RiskElaboration):
     how_many_recipients: int
-    how_many_scammy_recipients: int
-    scammy_recipient_details: List[ScammyNeighborDetails]
+    how_many_bad_recipients: int
+    bad_recipient_details: List[BadNeighborDetails]
     __as_json__: Dict[str, Any] = field(default_factory=lambda: {}) 
 
     @staticmethod
-    @raise_as("SentToScammer")
-    def from_dict(d: Dict[str, Any]   )->SentToScammer:
-        return SentToScammer(
+    @raise_as("SentToBadActor")
+    def from_dict(d: Dict[str, Any]   )->SentToBadActor:
+        return SentToBadActor(
             how_many_recipients = d["how_many_recipients"],
-            how_many_scammy_recipients = d["how_many_scammy_recipients"],
-            scammy_recipient_details = [ScammyNeighborDetails.from_dict(dd) for dd in d["scammy_recipient_details"]],
+            how_many_bad_recipients = d["how_many_bad_recipients"],
+            bad_recipient_details = [BadNeighborDetails.from_dict(dd) for dd in d["bad_recipient_details"]],
             __as_json__=d
         )
 
@@ -160,16 +159,16 @@ class SentToScammer(RiskElaboration):
         return self.__as_json__ 
 
 @dataclass 
-class FundedByScammer(RiskElaboration):
+class FundedByBadActor(RiskElaboration):
     how_many_funders: int 
-    how_many_scammy_funders: int 
-    scammy_funder_details: List[ScammyNeighborDetails] 
+    how_many_bad_funders: int 
+    bad_funder_details: List[BadNeighborDetails] 
     __as_json__: Dict[str, Any] = field(default_factory=lambda: {}) 
     
     @staticmethod
-    @raise_as("FundedByScammer")
-    def from_dict(d: Dict[str, Any]   )->FundedByScammer: 
-        x = FundedByScammer(**d)
+    @raise_as("FundedByBadActor")
+    def from_dict(d: Dict[str, Any]   )->FundedByBadActor: 
+        x = FundedByBadActor(**d)
         x.__as_json__ = d
         return x 
 
@@ -209,15 +208,15 @@ class VerifiedDates(RiskElaboration):
         return self.__as_json__ 
 
 @dataclass 
-class RiskyZeroValuedTxs(RiskElaboration):
+class BadZeroValuedTxs(RiskElaboration):
     how_many_neighbors: int 
-    how_many_scammy_neighbors: int 
-    scammy_neighbor_details: List[Dict[str,str]]
+    how_many_bad_neighbors: int 
+    bad_neighbor_details: List[Dict[str,str]]
     __as_json__: Dict[str, Any] = field(default_factory=lambda: {}) 
     @staticmethod
-    @raise_as("RiskyZeroValuedTxs")
-    def from_dict(d: Dict[str, Any]   )->RiskyZeroValuedTxs:
-        x = RiskyZeroValuedTxs(**d)
+    @raise_as("BadZeroValuedTxs")
+    def from_dict(d: Dict[str, Any]   )->BadZeroValuedTxs:
+        x = BadZeroValuedTxs(**d)
         x.__as_json__ = d
         return x 
 
