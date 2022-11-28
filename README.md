@@ -41,7 +41,7 @@ python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2
 <img width="851" alt="image" src="https://user-images.githubusercontent.com/115087366/204372112-63b6de06-fe21-4369-a83a-ef447b04528a.png">
 
 
-A **sanctioned wallet** that has received funds from a phising scammer:
+A **sanctioned wallet** that has received funds from a phising scammer. Because of having so many txs, this query will be close to the max latency:
 
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .
@@ -201,10 +201,10 @@ The ideas of `RiskOffsets` are, again, covered above in the 'Concepts' section.
 Each reason will have a label. For each reason, the subclass of `reason.risk_elaboration` can be known by its label. If you would like a new label added, please contact us and we’d love to look into its feasibility and usefulness. Here are the current labels:
 
 ```
-"sent-to-scammer"
-"funded-by-scammer"
-"risky-zero-valued-txs"
-"is-scammer"
+"sent-to-bad-actor"
+"funded-by-bad-actor"
+"bad-zero-valued-txs"
+"is-bad-actor"
 "date-verification"
 ```
 
@@ -214,43 +214,43 @@ And here are the corresponding classes
 class RiskElaboration:
   pass
   
-class IsScammer(RiskElaboration):
+class IsBadActor(RiskElaboration):
     """
     The queried entity is a known scammer. 
     The layout of `RiskAccountDetails` will be publicly expanded in the future, but for now it's JSON. 
     """
-    scam_history: List[RiskAccountDetails]
+    risk_details: List[RiskAccountDetails]
 
-class ScammyNeighborDetails:
+class BadNeighborDetails:
     sender: str
     recipient: str
     total_usd: float
-    scammer_details: RiskAccountDetails
+    risk_details: RiskAccountDetails
 
-class SentToScammer(RiskElaboration):
+class SentToBadActor(RiskElaboration):
     """
     The entity sent money to a scammer.
     The 'recipient' is a wallet that has received funds from the queried entity.
     """
     how_many_recipients: int
-    how_many_scammy_recipients: int
-    scammy_recipient_details: List[ScammyNeighborDetails]
+    how_many_bad_recipients: int
+    bad_recipient_details: List[ScammyNeighborDetails]
 
-class FundedByScammer(RiskElaboration):
+class FundedByBadActor(RiskElaboration):
     """
     The entity has received funds from a scammer.
     A wallet that has sent money to the queried entity is a 'funder'
     """
     how_many_funders: int
-    how_many_scammy_funders: int
-    scammy_funder_details: List[ScammyNeighborDetails]
+    how_many_bad_funders: int
+    bad_funder_details: List[ScammyNeighborDetails]
 
 
-class RiskyZeroValuedTxs(RiskElaboration):
+class BadZeroValuedTxs(RiskElaboration):
     "This class shows that the queried entity has had one or more zero-valued transactions with a scammer."
     how_many_neighbors: int
-    how_many_scammy_neighbors: int
-    scammy_neighbor_details: List[Dict[str,str]]
+    how_many_bad_neighbors: int
+    bad_neighbor_details: List[Dict[str,str]]
 
 ```
 
