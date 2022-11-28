@@ -23,6 +23,8 @@ The example files `example_default.py`, `example_json.py`, `example_reasons.py` 
 
 ## Examples 
 
+[(using jq)](https://stedolan.github.io/jq/download/)
+
 Here is an address that is a **honeypot scammer**:
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644da31443abfd"]}' | jq .
