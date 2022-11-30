@@ -6,7 +6,7 @@ A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has 
 
 Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free.
 
-## 🔗[Link to Google Colab]🔗(https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
+## 🔗[Link to Google Colab](https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
 
 
 ## 🛠Setup🛠
@@ -20,7 +20,7 @@ python3 example_default.py
 ```
 You will also need to install jq, a lightweight and flexible command-line JSON processor.
 
-## 🔗[Link to install jq]🔗(https://stedolan.github.io/jq/download/)
+## 🔗[Link to install jq](https://stedolan.github.io/jq/download/)
 
 ## 💾Data💾
 
