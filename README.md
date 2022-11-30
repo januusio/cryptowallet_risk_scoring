@@ -2,7 +2,7 @@
 
 A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any ethereum or bitcoin address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean json.
 
-# Google Colab Demonstration
+## Google Colab Demonstration
 
 Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free.
 
@@ -19,7 +19,8 @@ pip3 install -r requirements.txt
 python3 example_default.py
 ```
 You will also need to install jq, a lightweight and flexible command-line JSON processor.
-[Link to install jq](https://stedolan.github.io/jq/download/)
+
+## [Link to install jq](https://stedolan.github.io/jq/download/)
 
 ## Data
 
@@ -286,7 +287,7 @@ We ask that you generally not generate more than 30 queries per minute.
 95% of addresses will be queried in roughly 1 second or under. Latency of up to 30 seconds is uncommon.
 
 
-Full Example Output
+## Full Example Output
 
 ```
 python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq . 
@@ -415,3 +416,7 @@ Here is the full output of running the above command:
   }
 }
 ```
+
+## Thanks for reading!
+Now it's time to try it out!
+Thanks for making crypto safer.
