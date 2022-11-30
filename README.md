@@ -1,15 +1,15 @@
-# Cryptowallet Risk Scoring by Januus
+# ✨Cryptowallet Risk Scoring✨ by Januus
 
-A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any ethereum or bitcoin address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean json.
+A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any ethereum or bitcoin address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean JSON.
 
-## Google Colab Demonstration
+## 👀Google Colab Demonstration👀
 
 Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free.
 
-## [Link to Google Colab](https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
+## 🔗[Link to Google Colab]🔗(https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
 
 
-## Setup
+## 🛠Setup🛠
 
 ```
 git clone https://github.com/januusio/cryptowallet_risk_scoring
@@ -20,18 +20,18 @@ python3 example_default.py
 ```
 You will also need to install jq, a lightweight and flexible command-line JSON processor.
 
-## [Link to install jq](https://stedolan.github.io/jq/download/)
+## 🔗[Link to install jq]🔗(https://stedolan.github.io/jq/download/)
 
-## Data
+## 💾Data💾
 
 The dataset spans: sanctions, terrorism, petty scammers, crypto heists, malicious smart contract creators, nft thieves, ransomware creators, darknet traders across both OSINT and private datasets. It should be considered the union of existing wallet reporting service data, taggers and scam detectors - in addition to a large dataset unique to Januus. Transaction analysis is performed by default to assess risk by degrees of separation in the output.
 
-## Usage
+## 💪Usage💪
 
 The example files `example_default.py`, `example_json.py`, `example_reasons.py` easily articulate the usage options. 
 
 
-## Examples 
+## 👁Examples👁
 
 Here is an address that is a **honeypot scammer**:
 ```python
@@ -76,7 +76,7 @@ report = riskreport_on_entity( eth_addresses = [...], btc_addresses = [...] )
 If an entity has multiple addresses, all may be queried at the same time by passing lists of length > 1. The query must not be empty.
 
 
-## **Risk Scoring Package Maintenance**
+## 💡**Risk Scoring Package Maintenance**💡
 
 We're committed to supporting this package *indefinitely*. Fresh risk data, newly identified threat actors and fraudulent wallets are added to the database daily. 
 
@@ -419,4 +419,4 @@ Here is the full output of running the above command:
 
 ## Thanks for reading!
 Now it's time to try it out!
-Thanks for making crypto safer.
+You're a **true hero** for making crypto safer.
