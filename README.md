@@ -2,6 +2,13 @@
 
 A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any ethereum or bitcoin address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean json.
 
+# Google Colab Demonstration
+
+Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers.
+
+https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing
+
+
 ## Setup
 
 ```
@@ -277,3 +284,134 @@ We ask that you generally not generate more than 30 queries per minute.
 
 ## Performance / Latency
 95% of addresses will be queried in roughly 1 second or under. Latency of up to 30 seconds is uncommon.
+
+
+Full Example Output
+
+```
+python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq . 
+```
+Here is the full output of running the above command:
+
+ ``` "reasons": [
+    {
+      "explanation": "The following addresses of this entity were found to likely be a threat: 0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+      "label": "is-threat",
+      "offsets": {
+        "combined_risk_offset": 28.995323,
+        "fraud_risk_offset": 5.7426276,
+        "lending_risk_offset": 12.905636,
+        "reputation_risk_offset": 57.705906
+      },
+      "risk_elaboration": {
+        "scam_history": [
+          {
+            "address": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "blockchain": "ethereum",
+            "risk_factors": [
+              {
+                "actor_type": "terrorist",
+                "involved_risk_activity": {
+                  "category_name": "terrorism",
+                  "description": "Used by a terrorist or a terrorist organisation as means of payment.",
+                  "rating": "high",
+                  "sub_category": "terroristOrganisation"
+                },
+                "media_platform_used": "Unknown"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "explanation": "The entity has been associated with multiple dates between 2018-09-14 and 2022-07-26",
+      "label": "date-verification",
+      "offsets": {
+        "combined_risk_offset": -0.005976978,
+        "fraud_risk_offset": -0.5607944,
+        "lending_risk_offset": 0,
+        "reputation_risk_offset": -0.2928783
+      },
+      "risk_elaboration": {
+        "verified_dates": [
+          {
+            "date": "2018-09-14",
+            "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was first seen on the blockchain.",
+            "weight": 0.456
+          },
+          {
+            "date": "2022-07-26",
+            "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was last seen on the blockchain.",
+            "weight": 0.0327
+          }
+        ]
+      }
+    },
+    {
+      "explanation": "The entity has received a total of $3078.355 from 2 scammer(s) or threat actor(s).",
+      "label": "funded-by-scammer",
+      "offsets": {
+        "combined_risk_offset": 33.522907,
+        "fraud_risk_offset": 64.81809,
+        "lending_risk_offset": 19.686096,
+        "reputation_risk_offset": 12.571773
+      },
+      "risk_elaboration": {
+        "how_many_funders": "45",
+        "how_many_scammy_funders": "2",
+        "scammy_funder_details": [
+          {
+            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "scammer_details": {
+              "address": "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
+              "blockchain": "ethereum",
+              "risk_factors": [
+                {
+                  "actor_type": "scammer",
+                  "involved_risk_activity": {
+                    "category_name": "fraud",
+                    "description": "Uses different fraud techniques to trick the victim into paying a certain amount of money to the actor.",
+                    "rating": "moderate",
+                    "sub_category": "scam"
+                  },
+                  "media_platform_used": "Unknown"
+                }
+              ]
+            },
+            "sender": "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
+            "total_usd": 300.2535095214844
+          },
+          {
+            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "scammer_details": {
+              "address": "0x5baeac0a0417a05733884852aa068b706967e790",
+              "blockchain": "ethereum",
+              "risk_factors": [
+                {
+                  "actor_type": "hacker",
+                  "involved_risk_activity": {
+                    "category_name": "hacking",
+                    "description": "Exploit using the user's data",
+                    "rating": "high",
+                    "sub_category": "exploit"
+                  },
+                  "media_platform_used": "Unknown"
+                }
+              ]
+            },
+            "sender": "0x5baeac0a0417a05733884852aa068b706967e790",
+            "total_usd": 2778.1015625
+          }
+        ]
+      }
+    }
+  ],
+  "risk_scores": {
+    "combined_risk": 92.51225,
+    "fraud_risk": 99.99992,
+    "lending_risk": 62.591732,
+    "reputation_risk": 99.9848
+  }
+}
+```
