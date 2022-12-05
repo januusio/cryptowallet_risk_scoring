@@ -6,7 +6,7 @@ import urllib3
 from urllib3.exceptions import ProtocolError 
 import os 
 
-url = "http://34.229.17.199:8081" 
+url = "https://risk.charybdis.januus.io/" 
 
 __http__ = urllib3.PoolManager()
 
