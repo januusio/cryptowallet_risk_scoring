@@ -417,6 +417,3 @@ Here is the full output of running the above command:
 }
 ```
 
-## Thanks for reading!
-Now it's time to try it out!
-You're a **true hero** for making crypto safer.
