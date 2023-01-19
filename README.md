@@ -4,7 +4,7 @@ A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has 
 
 ## Google Colab Demonstration
 
-Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free.
+Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free. Or, simply follow along at the terminal.
 
 ## [Link to Google Colab](https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
 
@@ -18,13 +18,13 @@ python3 setup.py install
 pip3 install -r requirements.txt
 python3 example_default.py
 ```
-You will also need to install jq, a lightweight and flexible command-line JSON processor.
+`jq` (a lightweight CLI JSON processor) is used to show responses.
 
 ## [Link to install jq](https://stedolan.github.io/jq/download/)
 
 ## Data
 
-The dataset spans: sanctions, terrorism, petty scammers, crypto heists, malicious smart contract creators, nft thieves, ransomware creators, darknet traders across both OSINT and private datasets. It should be considered the union of existing wallet reporting service data, taggers and scam detectors - in addition to a large dataset unique to Januus. Transaction analysis is performed by default to assess risk by degrees of separation in the output.
+The dataset spans sanctions, terrorism, petty scammers, crypto heists, malicious smart contract creators, nft thieves, ransomware creators, darknet traders across both OSINT and private datasets. It should be considered the union of existing wallet reporting service data, taggers and scam detectors - in addition to a large dataset unique to Januus. Transaction analysis is performed by default to assess risk by degrees of separation in the output.
 
 ## Usage
 
@@ -40,15 +40,18 @@ python3 -m januus_riskreport '{"eth_addresses":["0xbb0ea877a85df253ccc312b80c644
 
 <img width="1009" alt="image" src="https://user-images.githubusercontent.com/115087366/204371629-9c7155fe-02d3-4ed8-b7fd-40bee09dfa5e.png">
 
-Here is a **terrorist** who has also been paid $3078.36 by a hacker:
+Here is a **terrorist** who has also sent $40K to two different hackers:
 ```python
 python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq .
 ```
-<img width="345" alt="image" src="https://user-images.githubusercontent.com/115087366/204372524-1de01e31-ed42-43cc-a876-cac401c56a90.png">
+<img width="384" alt="image" src="https://user-images.githubusercontent.com/115087366/213552036-6cd8eed9-0143-45ed-959d-b34af0c35fdd.png">
 
-<img width="828" alt="image" src="https://user-images.githubusercontent.com/115087366/204371976-61181e34-5a2e-4895-b0ee-4e81098ca8dc.png">
+<img width="1331" alt="image" src="https://user-images.githubusercontent.com/115087366/213552214-62cba075-f7d2-44a3-8df6-1847c0929b2d.png">
 
-<img width="851" alt="image" src="https://user-images.githubusercontent.com/115087366/204372112-63b6de06-fe21-4369-a83a-ef447b04528a.png">
+Notice that by sending to scammers, the `lending_risk` is mostly increased. If the terrorist would have received funds from a hacker, the `fraudRisk` would be the main increase. 
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/115087366/213552626-bb30bed0-d3fd-4250-8aac-e1ec220c23a8.png">
+
+
 
 
 Here is a **sanctioned wallet** that has received funds from a phising scammer. Because of having so many txs, this query will be close to the max latency:
@@ -294,31 +297,39 @@ python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2
 ```
 Here is the full output of running the above command:
 
- ``` "reasons": [
+ ``` 
+ {
+   "riskScores": {
+    "combinedRisk": 88.74487,
+    "fraudRisk": 60,
+    "lendingRisk": 83.75579,
+    "reputationRisk": 99.98428
+  },
+  "reasons": [
     {
       "explanation": "The following addresses of this entity were found to likely be a threat: 0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-      "label": "is-threat",
+      "label": "is-bad-actor",
       "offsets": {
-        "combined_risk_offset": 28.995323,
-        "fraud_risk_offset": 5.7426276,
-        "lending_risk_offset": 12.905636,
-        "reputation_risk_offset": 57.705906
+        "combinedRiskOffset": 29.708868,
+        "fraudRiskOffset": 0.32882464,
+        "lendingRiskOffset": 5.1573777,
+        "reputationRiskOffset": 44.420914
       },
-      "risk_elaboration": {
-        "scam_history": [
+      "riskElaboration": {
+        "riskDetails": [
           {
             "address": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
             "blockchain": "ethereum",
-            "risk_factors": [
+            "riskFactors": [
               {
-                "actor_type": "terrorist",
-                "involved_risk_activity": {
-                  "category_name": "terrorism",
+                "actorType": "terrorist",
+                "involvedRiskActivity": {
+                  "categoryName": "terrorism",
                   "description": "Used by a terrorist or a terrorist organisation as means of payment.",
                   "rating": "high",
-                  "sub_category": "terroristOrganisation"
+                  "subCategory": "terroristOrganisation"
                 },
-                "media_platform_used": "Unknown"
+                "mediaPlatformUsed": "Unknown"
               }
             ]
           }
@@ -329,91 +340,198 @@ Here is the full output of running the above command:
       "explanation": "The entity has been associated with multiple dates between 2018-09-14 and 2022-07-26",
       "label": "date-verification",
       "offsets": {
-        "combined_risk_offset": -0.005976978,
-        "fraud_risk_offset": -0.5607944,
-        "lending_risk_offset": 0,
-        "reputation_risk_offset": -0.2928783
+        "combinedRiskOffset": -0.009254154,
+        "fraudRiskOffset": -0.03457473,
+        "lendingRiskOffset": 0,
+        "reputationRiskOffset": -0.24332792
       },
-      "risk_elaboration": {
-        "verified_dates": [
+      "riskElaboration": {
+        "verifiedDates": [
           {
             "date": "2018-09-14",
             "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was first seen on the blockchain.",
-            "weight": 0.456
+            "weight": 0.4764
           },
           {
             "date": "2022-07-26",
             "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was last seen on the blockchain.",
-            "weight": 0.0327
+            "weight": 0.0531
           }
         ]
       }
     },
     {
-      "explanation": "The entity has received a total of $3078.355 from 2 scammer(s) or threat actor(s).",
-      "label": "funded-by-scammer",
+      "explanation": "The entity has sent a total of $43023.215 to 2 risk vector(s). This could mean that they are a victim of fraud, or have knowingly funded a threat actor.",
+      "label": "sent-to-bad-actor",
       "offsets": {
-        "combined_risk_offset": 33.522907,
-        "fraud_risk_offset": 64.81809,
-        "lending_risk_offset": 19.686096,
-        "reputation_risk_offset": 12.571773
+        "combinedRiskOffset": 16.733398,
+        "fraudRiskOffset": 21.985506,
+        "lendingRiskOffset": 38.055454,
+        "reputationRiskOffset": 16.129187
       },
-      "risk_elaboration": {
-        "how_many_funders": "45",
-        "how_many_scammy_funders": "2",
-        "scammy_funder_details": [
+      "riskElaboration": {
+        "badRecipientDetails": [
           {
-            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "scammer_details": {
-              "address": "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
+            "recipient": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
+            "riskDetails": {
+              "address": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
               "blockchain": "ethereum",
-              "risk_factors": [
+              "riskFactors": [
                 {
-                  "actor_type": "scammer",
-                  "involved_risk_activity": {
-                    "category_name": "fraud",
-                    "description": "Uses different fraud techniques to trick the victim into paying a certain amount of money to the actor.",
-                    "rating": "moderate",
-                    "sub_category": "scam"
+                  "actorType": "hacker",
+                  "involvedRiskActivity": {
+                    "categoryName": "hacking",
+                    "description": "Exploit using the user's data",
+                    "rating": "high",
+                    "subCategory": "exploit"
                   },
-                  "media_platform_used": "Unknown"
+                  "mediaPlatformUsed": "Upbit's Exchange"
                 }
               ]
             },
-            "sender": "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98",
-            "total_usd": 300.2535095214844
+            "sender": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "totalUsd": 42179.03125
+          },
+          {
+            "recipient": "0x28c6c06298d514db089934071355e5743bf21d60",
+            "riskDetails": {
+              "address": "0x28c6c06298d514db089934071355e5743bf21d60",
+              "blockchain": "binanceSmartChain",
+              "riskFactors": [
+                {
+                  "actorType": "hacker",
+                  "involvedRiskActivity": {
+                    "categoryName": "hacking",
+                    "description": "Extracts money from the victim through hacking activities.",
+                    "rating": "high",
+                    "subCategory": "contractExploit"
+                  },
+                  "mediaPlatformUsed": "Binance"
+                }
+              ]
+            },
+            "sender": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "totalUsd": 844.1837158203125
+          }
+        ],
+        "howManyBadRecipients": "2",
+        "howManyRecipients": "2",
+        "totalUsd": 43023.21484375
+      }
+    },
+    {
+      "explanation": "The entity has received a total of $2996.7886 from 2 scammer(s) or threat actor(s).",
+      "label": "funded-by-bad-actor",
+      "offsets": {
+        "combinedRiskOffset": 12.311863,
+        "fraudRiskOffset": 7.6419144,
+        "lendingRiskOffset": 10.542954,
+        "reputationRiskOffset": 9.677512
+      },
+      "riskElaboration": {
+        "badFunderDetails": [
+          {
+            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
+            "riskDetails": {
+              "address": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
+              "blockchain": "ethereum",
+              "riskFactors": [
+                {
+                  "actorType": "hacker",
+                  "involvedRiskActivity": {
+                    "categoryName": "hacking",
+                    "description": "Exploit using the user's data",
+                    "rating": "high",
+                    "subCategory": "exploit"
+                  },
+                  "mediaPlatformUsed": "Upbit's Exchange"
+                }
+              ]
+            },
+            "sender": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
+            "totalUsd": 218.68710327148438
           },
           {
             "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "scammer_details": {
+            "riskDetails": {
               "address": "0x5baeac0a0417a05733884852aa068b706967e790",
               "blockchain": "ethereum",
-              "risk_factors": [
+              "riskFactors": [
                 {
-                  "actor_type": "hacker",
-                  "involved_risk_activity": {
-                    "category_name": "hacking",
+                  "actorType": "hacker",
+                  "involvedRiskActivity": {
+                    "categoryName": "hacking",
                     "description": "Exploit using the user's data",
                     "rating": "high",
-                    "sub_category": "exploit"
+                    "subCategory": "exploit"
                   },
-                  "media_platform_used": "Unknown"
+                  "mediaPlatformUsed": "Unknown"
                 }
               ]
             },
             "sender": "0x5baeac0a0417a05733884852aa068b706967e790",
-            "total_usd": 2778.1015625
+            "totalUsd": 2778.1015625
           }
-        ]
+        ],
+        "howManyBadFunders": "2",
+        "howManyFunders": "45"
+      }
+    },
+    {
+      "explanation": "The entity has had blockchain transactions with a known threat. However, the total value sent/received was $0 so it may be part of a automatically executed contract. Or, if it's BTC, it could imply they belong to the same wallet.",
+      "label": "bad-zero-valued-txs",
+      "offsets": {
+        "combinedRiskOffset": 0,
+        "fraudRiskOffset": 0.07832732,
+        "lendingRiskOffset": 0,
+        "reputationRiskOffset": 0
+      },
+      "riskElaboration": {
+        "badNeighborDetails": [
+          {
+            "neighbor": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "riskDetails": {
+              "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+              "blockchain": "ethereum",
+              "riskFactors": [
+                {
+                  "actorType": "hacker",
+                  "involvedRiskActivity": {
+                    "categoryName": "hacking",
+                    "description": "Extracts money from the victim through hacking activities.",
+                    "rating": "high",
+                    "subCategory": "contractExploit"
+                  },
+                  "mediaPlatformUsed": "website"
+                }
+              ]
+            }
+          },
+          {
+            "neighbor": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "riskDetails": {
+              "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+              "blockchain": "tether",
+              "riskFactors": [
+                {
+                  "actorType": "illegalSanctionedEntity",
+                  "involvedRiskActivity": {
+                    "categoryName": "sanction",
+                    "description": "This cryptocurrency address is deemed a sanctioned cryptocurrency address due to disobeying the law.",
+                    "rating": "high",
+                    "subCategory": "illegalActivity"
+                  },
+                  "mediaPlatformUsed": "bitfinex"
+                }
+              ]
+            }
+          }
+        ],
+        "howManyBadNeighbors": "2",
+        "howManyNeighbors": "49"
       }
     }
-  ],
-  "risk_scores": {
-    "combined_risk": 92.51225,
-    "fraud_risk": 99.99992,
-    "lending_risk": 62.591732,
-    "reputation_risk": 99.9848
-  }
+  ]
 }
 ```
 
