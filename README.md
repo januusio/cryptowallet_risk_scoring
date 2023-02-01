@@ -53,16 +53,6 @@ Notice that by sending to scammers, the `lending_risk` is mostly increased. If t
 
 
 
-
-Here is a **sanctioned wallet** that has received funds from a phising scammer. Because of having so many txs, this query will be close to the max latency:
-
-```python
-python3 -m januus_riskreport '{"eth_addresses":["0xdac17f958d2ee523a2206206994597c13d831ec7"]}' | jq .
-```
-<img width="784" alt="image" src="https://user-images.githubusercontent.com/115087366/204373963-85da21a4-38ec-4e50-92b9-c7aa23b37222.png">
-<img width="931" alt="image" src="https://user-images.githubusercontent.com/115087366/204373778-42468758-db8a-4bf4-a553-4cc940da0469.png">
-
-
 # Using the client
 
 The request to Januus' risk scoring service is a single function:
