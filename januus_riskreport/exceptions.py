@@ -7,12 +7,12 @@ class RiskReportException(Exception):
 class DeserializationException(RiskReportException):
 
     def __init__(self, msg: str):
-        self.message = f"\nCould not deserialize the following class: {msg}\nPlease PLEASE contact januus to file a bug" 
+        self.message = f"\nCould not deserialize the following class: {msg}\nPlease contact januus to file a bug report." 
         super().__init__(self.message)
 
 class UnknownLabelException(RiskReportException):
     def __init__(self, msg: str):
-        self.message = f"Unknown label: {msg}\nPlease PLEASE contact januus to file a bug" 
+        self.message = f"Unknown label: {msg}\nPlease contact januus to file a bug report." 
         super().__init__(self.message)
 
 
@@ -23,5 +23,5 @@ class EndPointException(RiskReportException):
 
 class RequestedNullReport(RiskReportException):
     def __init__(self):
-        self.message = "You asked for a risk report but didn't provide any data about the entity. Try adding 'eth_addresses' or 'btc_addresses'" 
+        self.message = "A wallet address needs to be entered. Try adding an 'eth_addresses' or 'btc_addresses'." 
         super().__init__(self.message)
