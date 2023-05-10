@@ -249,6 +249,8 @@ class VerifiedDates(RiskElaboration):
     @staticmethod 
     @raise_as("VerifiedDates")
     def from_dict(d:Dict[str,Any])->RiskElaboration:
+       for date_info in d["verified_dates"]:
+           date_info.setdefault("weight", 0.0)
        x = VerifiedDates(verified_dates=[VerifiedDate.from_dict(dd) for dd in d["verified_dates"]])
        x.__as_json__ = d
        return x 
