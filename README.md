@@ -1,6 +1,6 @@
 # Cryptowallet Risk Scoring by Januus
 
-A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any ethereum or bitcoin address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean JSON.
+A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any Ethereum, Bitcoin, or Tron address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean JSON.
 
 ## Google Colab Demonstration
 
@@ -73,7 +73,7 @@ If an entity has multiple addresses, all may be queried at the same time by pass
 
 We're committed to supporting this package *indefinitely*. Fresh risk data, newly identified threat actors and fraudulent wallets are added to the database daily. 
 
-## **What kind of risk?**
+## **Type of Risk Data?**
  
 Risk is not one-dimensional. A terrorist organization may pay their bills on time and be very credit worthy; but that doesn’t mean that they should be engaged with. A person who tends to naively fall for phishing scams isn’t necessarily likely to defraud others; but he probably shouldn’t be lent to. This API scores entities along 3 dimensions of risk:
 
@@ -98,7 +98,7 @@ Risk is not one-dimensional. A terrorist organization may pay their bills on tim
   - For the overall reputation risk: `report.risk_scores.lending_risk`
   - For each reason in `report.reasons`: `reason.offsets.lending_risk_offset`
  
-## I don’t care about categories of risk. Give me a number.
+## Retriving a Risk Score Value Only
 
   - Use `report.risk_scores.combined_risk`.
   
@@ -156,9 +156,9 @@ class RiskReport:
     reasons: List[RiskReason]
 ```
 
-## RiskScores
+## The RiskScores Object
 
-What is a `RiskScores` object? It contains the three fundamental scores of risk, as well as a combined score. These are all explained above in the 'Concepts' section. 
+The `RiskScores` object contains the three fundamental scores of risk, as well as a combined score. These are all explained above in the 'Concepts' section. 
 
 ```python
 class RiskScores:
@@ -309,7 +309,7 @@ Here is the full output of running the above command:
         "riskDetails": [
           {
             "address": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "blockchain": "ethereum",
+            "blockchain": "",
             "riskFactors": [
               {
                 "actorType": "terrorist",
