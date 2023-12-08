@@ -7,7 +7,7 @@ A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has 
 Here is a link to this program running inside of Google Colab. It runs in any web browser, on Google's servers, for free. Or, simply follow along at the terminal.
 
 ## [Link to Google Colab](https://colab.research.google.com/drive/1Nano2OqScR6h83V3t96ub99uADLGFiYx?usp=sharing)
-
+(Colab written by third party)
 
 ## Setup 
 
@@ -283,245 +283,168 @@ We ask that you generally not generate more than 30 queries per minute.
 ## Full Example Output
 
 ```
-python3 -m januus_riskreport '{"eth_addresses":["0xebfe7a29ea17acb5f6f437e659bd2d472deedc54"]}' | jq . 
+python3 -m januus_riskreport '{"eth_addresses":["0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6"]}' | jq . 
 ```
-Here is the full output of running the above command:
 
- ``` 
- {
-   "riskScores": {
-    "combinedRisk": 88.74487,
-    "fraudRisk": 60,
-    "lendingRisk": 83.75579,
-    "reputationRisk": 99.98428
-  },
+```
+{
   "reasons": [
     {
-      "explanation": "The following addresses of this entity were found to likely be a threat: 0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-      "label": "is-bad-actor",
-      "offsets": {
-        "combinedRiskOffset": 29.708868,
-        "fraudRiskOffset": 0.32882464,
-        "lendingRiskOffset": 5.1573777,
-        "reputationRiskOffset": 44.420914
-      },
-      "riskElaboration": {
-        "riskDetails": [
-          {
-            "address": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "blockchain": "",
-            "riskFactors": [
-              {
-                "actorType": "terrorist",
-                "involvedRiskActivity": {
-                  "categoryName": "terrorism",
-                  "description": "Used by a terrorist or a terrorist organisation as means of payment.",
-                  "rating": "high",
-                  "subCategory": "terroristOrganisation"
-                },
-                "mediaPlatformUsed": "Unknown"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "explanation": "The entity has been associated with multiple dates between 2018-09-14 and 2022-07-26",
+      "explanation": "The entity has been associated with multiple dates between 2017-02-14 and 2023-09-22",
       "label": "date-verification",
       "offsets": {
-        "combinedRiskOffset": -0.009254154,
-        "fraudRiskOffset": -0.03457473,
+        "combinedRiskOffset": -2.5368404,
+        "fraudRiskOffset": -2.8950028,
         "lendingRiskOffset": 0,
-        "reputationRiskOffset": -0.24332792
+        "reputationRiskOffset": -1.7997159
       },
       "riskElaboration": {
         "verifiedDates": [
           {
-            "date": "2018-09-14",
-            "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was first seen on the blockchain.",
-            "weight": 0.4764
+            "date": "2017-02-14",
+            "source": "The day '0x08d32b0da63e2c3bcf8019c9c5d849d7a9d791e6' was first seen on the blockchain.",
+            "weight": 0.7461
           },
           {
-            "date": "2022-07-26",
-            "source": "The day '0xebfe7a29ea17acb5f6f437e659bd2d472deedc54' was last seen on the blockchain.",
-            "weight": 0.0531
+            "date": "2023-09-22",
+            "source": "The day '0x08d32b0da63e2c3bcf8019c9c5d849d7a9d791e6' was last seen on the blockchain.",
+            "weight": 0.0228
           }
         ]
       }
     },
     {
-      "explanation": "The entity has sent a total of $43023.215 to 2 risk vector(s). This could mean that they are a victim of fraud, or have knowingly funded a threat actor.",
+      "explanation": "The entity has sent a total of $117.73446 to 1 risk vector(s). This could mean that they are a victim of fraud, or have knowingly funded a threat actor.",
       "label": "sent-to-bad-actor",
       "offsets": {
-        "combinedRiskOffset": 16.733398,
-        "fraudRiskOffset": 21.985506,
-        "lendingRiskOffset": 38.055454,
-        "reputationRiskOffset": 16.129187
+        "combinedRiskOffset": 0.005155486,
+        "fraudRiskOffset": 0.0029025616,
+        "lendingRiskOffset": 0.005628586,
+        "reputationRiskOffset": 0.002870712
       },
       "riskElaboration": {
         "badRecipientDetails": [
           {
-            "recipient": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
+            "recipient": "0xe63b94071ddfef2acea8a1048a158b573b605f20",
             "riskDetails": {
-              "address": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
-              "blockchain": "ethereum",
+              "address": "0xe63b94071ddfef2acea8a1048a158b573b605f20",
               "riskFactors": [
                 {
-                  "actorType": "hacker",
+                  "actorType": "scammer",
                   "involvedRiskActivity": {
-                    "categoryName": "hacking",
-                    "description": "Exploit using the user's data",
-                    "rating": "high",
-                    "subCategory": "exploit"
-                  },
-                  "mediaPlatformUsed": "Upbit's Exchange"
-                }
-              ]
-            },
-            "sender": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "totalUsd": 42179.03125
-          },
-          {
-            "recipient": "0x28c6c06298d514db089934071355e5743bf21d60",
-            "riskDetails": {
-              "address": "0x28c6c06298d514db089934071355e5743bf21d60",
-              "blockchain": "binanceSmartChain",
-              "riskFactors": [
-                {
-                  "actorType": "hacker",
-                  "involvedRiskActivity": {
-                    "categoryName": "hacking",
-                    "description": "Extracts money from the victim through hacking activities.",
-                    "rating": "high",
-                    "subCategory": "contractExploit"
-                  },
-                  "mediaPlatformUsed": "Binance"
-                }
-              ]
-            },
-            "sender": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "totalUsd": 844.1837158203125
-          }
-        ],
-        "howManyBadRecipients": "2",
-        "howManyRecipients": "2",
-        "totalUsd": 43023.21484375
-      }
-    },
-    {
-      "explanation": "The entity has received a total of $2996.7886 from 2 scammer(s) or threat actor(s).",
-      "label": "funded-by-bad-actor",
-      "offsets": {
-        "combinedRiskOffset": 12.311863,
-        "fraudRiskOffset": 7.6419144,
-        "lendingRiskOffset": 10.542954,
-        "reputationRiskOffset": 9.677512
-      },
-      "riskElaboration": {
-        "badFunderDetails": [
-          {
-            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "riskDetails": {
-              "address": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
-              "blockchain": "ethereum",
-              "riskFactors": [
-                {
-                  "actorType": "hacker",
-                  "involvedRiskActivity": {
-                    "categoryName": "hacking",
-                    "description": "Exploit using the user's data",
-                    "rating": "high",
-                    "subCategory": "exploit"
-                  },
-                  "mediaPlatformUsed": "Upbit's Exchange"
-                }
-              ]
-            },
-            "sender": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
-            "totalUsd": 218.68710327148438
-          },
-          {
-            "recipient": "0xebfe7a29ea17acb5f6f437e659bd2d472deedc54",
-            "riskDetails": {
-              "address": "0x5baeac0a0417a05733884852aa068b706967e790",
-              "blockchain": "ethereum",
-              "riskFactors": [
-                {
-                  "actorType": "hacker",
-                  "involvedRiskActivity": {
-                    "categoryName": "hacking",
-                    "description": "Exploit using the user's data",
-                    "rating": "high",
-                    "subCategory": "exploit"
+                    "categoryName": "phishing",
+                    "description": "Tricks the victim into paying a certain amount of money to the actor.",
+                    "rating": "moderate",
+                    "subCategory": "scam"
                   },
                   "mediaPlatformUsed": "Unknown"
                 }
               ]
             },
-            "sender": "0x5baeac0a0417a05733884852aa068b706967e790",
-            "totalUsd": 2778.1015625
+            "sender": "0x08d32b0da63e2c3bcf8019c9c5d849d7a9d791e6",
+            "totalUsd": 117.73445892333984
           }
         ],
-        "howManyBadFunders": "2",
-        "howManyFunders": "45"
+        "howManyBadRecipients": "1",
+        "howManyRecipients": "3246",
+        "totalUsd": 117.73445892333984
+      }
+    },
+    {
+      "explanation": "The entity has received a total of $128.235 from 1 scammer(s) or threat actor(s).",
+      "label": "funded-by-bad-actor",
+      "offsets": {
+        "combinedRiskOffset": 0.0022822178,
+        "fraudRiskOffset": 0.002160931,
+        "lendingRiskOffset": 0,
+        "reputationRiskOffset": 0.0021372193
+      },
+      "riskElaboration": {
+        "badFunderDetails": [
+          {
+            "recipient": "0x08d32b0da63e2c3bcf8019c9c5d849d7a9d791e6",
+            "riskDetails": {
+              "address": "0xe63b94071ddfef2acea8a1048a158b573b605f20",
+              "riskFactors": [
+                {
+                  "actorType": "scammer",
+                  "involvedRiskActivity": {
+                    "categoryName": "phishing",
+                    "description": "Tricks the victim into paying a certain amount of money to the actor.",
+                    "rating": "moderate",
+                    "subCategory": "scam"
+                  },
+                  "mediaPlatformUsed": "Unknown"
+                }
+              ]
+            },
+            "sender": "0xe63b94071ddfef2acea8a1048a158b573b605f20",
+            "totalUsd": 128.23500061035156
+          }
+        ],
+        "howManyBadFunders": "1",
+        "howManyFunders": "3762"
       }
     },
     {
       "explanation": "The entity has had blockchain transactions with a known threat. However, the total value sent/received was $0 so it may be part of a automatically executed contract. Or, if it's BTC, it could imply they belong to the same wallet.",
       "label": "bad-zero-valued-txs",
       "offsets": {
-        "combinedRiskOffset": 0,
-        "fraudRiskOffset": 0.07832732,
+        "combinedRiskOffset": 0.0026444746,
+        "fraudRiskOffset": 0.0015002476,
         "lendingRiskOffset": 0,
-        "reputationRiskOffset": 0
+        "reputationRiskOffset": 0.0029676585
       },
       "riskElaboration": {
         "badNeighborDetails": [
           {
-            "neighbor": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "neighbor": "0xa6a8dc7904911b23347989eac761e8322db67018",
             "riskDetails": {
-              "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-              "blockchain": "ethereum",
+              "address": "0xa6a8dc7904911b23347989eac761e8322db67018",
               "riskFactors": [
                 {
-                  "actorType": "hacker",
+                  "actorType": "scammer",
                   "involvedRiskActivity": {
-                    "categoryName": "hacking",
-                    "description": "Extracts money from the victim through hacking activities.",
-                    "rating": "high",
-                    "subCategory": "contractExploit"
+                    "categoryName": "phishing",
+                    "description": "Tricks the victim into paying a certain amount of money to the actor.",
+                    "rating": "moderate",
+                    "subCategory": "scam"
                   },
-                  "mediaPlatformUsed": "website"
+                  "mediaPlatformUsed": "Unknown"
                 }
               ]
             }
           },
           {
-            "neighbor": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "neighbor": "0x9007a0421145b06a0345d55a8c0f0327f62a2224",
             "riskDetails": {
-              "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-              "blockchain": "tether",
+              "address": "0x9007a0421145b06a0345d55a8c0f0327f62a2224",
               "riskFactors": [
                 {
-                  "actorType": "illegalSanctionedEntity",
+                  "actorType": "hacker",
                   "involvedRiskActivity": {
-                    "categoryName": "sanction",
-                    "description": "This cryptocurrency address is deemed a sanctioned cryptocurrency address due to disobeying the law.",
+                    "categoryName": "hacking",
+                    "description": "Utilizing vulnerabilities in systems to gain unauthorized access, often with the intent of compromising data or executing malicious actions.",
                     "rating": "high",
-                    "subCategory": "illegalActivity"
+                    "subCategory": "exploit"
                   },
-                  "mediaPlatformUsed": "bitfinex"
+                  "mediaPlatformUsed": "Unknown"
                 }
               ]
             }
           }
         ],
         "howManyBadNeighbors": "2",
-        "howManyNeighbors": "49"
+        "howManyNeighbors": "4515"
       }
     }
-  ]
+  ],
+  "riskScores": {
+    "combinedRisk": 27.473242,
+    "fraudRisk": 27.11156,
+    "lendingRisk": 30.005629,
+    "reputationRisk": 28.20826
+  }
 }
-```
 
+```
