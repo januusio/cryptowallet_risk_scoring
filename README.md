@@ -1,3 +1,5 @@
+# ** Free endpoint currently paused for maintenance **
+
 # Cryptowallet Risk Scoring by Januus
 
 A free cryptowallet risk assessment tool, it helps assess if a cryptowallet has transacted with a threat actor, if it belongs to a scammer, or if the wallet address is generally safe. It generates a report on the fraudulent activity of any Ethereum, Bitcoin, or Tron address based on the corresponding identity data and transaction analysis and displays the audit trail for this report in clean JSON.
